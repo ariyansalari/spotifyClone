@@ -1,6 +1,6 @@
 'use client'
 
-import { AuthModal } from "@/ui"
+import { AuthModal, UploadModal } from "@/ui"
 import { useEffect, useState } from "react"
 
 export const ModalProvider = () => {
@@ -12,6 +12,7 @@ setIsMounted(true)
   return (
     <>
   <AuthModal/>
+  <UploadModal/>
     </> 
   )
 }
