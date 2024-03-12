@@ -1,11 +1,18 @@
 "ues client";
 
+import { useAuthModal, useUploadModal, useUser } from "@/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
 
 export const LibrarySidebar = () => {
+  const authModal=useAuthModal()
+  const uploadModal=useUploadModal()
+const {user }=useUser()
   const onClick = () => {
-    // TODO:: handle upload later
+    if(!user){
+      return authModal.onOpen()
+    }
+    return uploadModal.onOpen()
   };
   return (
     <div className="flex flex-col">
