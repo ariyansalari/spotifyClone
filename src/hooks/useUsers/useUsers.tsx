@@ -1,3 +1,4 @@
+"use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { Props, UserContextType } from "./useUsers.types";
 import {
@@ -16,7 +17,9 @@ export const MyUserContextProvider = (props: Props) => {
     supabaseClient: supabase,
   } = useSessionContext();
   const user = useSupaUser();
-  const accesToken = session?.access_token ?? null;
+
+  const accessToken = session?.access_token ?? null;
+
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [subscription, setSubscription] = useState<Subscription | null>(null);
@@ -32,14 +35,27 @@ export const MyUserContextProvider = (props: Props) => {
       Promise.allSettled([getUserDetails(), getSubscription()]).then((res) => {
         const userDetailsPromise = res[0];
         const subscriptionPromise = res[1];
+
         if (userDetailsPromise.status === "fulfilled") {
           setUserDetails(userDetailsPromise.value.data as UserDetails);
+        } else {
+          console.error(
+            "Error fetching user details:",
+            userDetailsPromise.reason
+          );
         }
+
         if (subscriptionPromise.status === "fulfilled") {
           setSubscription(
             subscriptionPromise.value.data as unknown as Subscription
           );
+        } else {
+          console.error(
+            "Error fetching subscription:",
+            subscriptionPromise.reason
+          );
         }
+
         setIsLoadingData(false);
       });
     } else if (!user && !isLoadingUser && !isLoadingData) {
@@ -48,7 +64,7 @@ export const MyUserContextProvider = (props: Props) => {
     }
   }, [user, isLoadingUser]);
   const value = {
-    accesToken,
+    accessToken,
     user,
     userDetails,
     isLoading: isLoadingUser || isLoadingData,
@@ -61,5 +77,5 @@ export const useUser = () => {
   if (context === undefined) {
     throw new Error("useUser must be used within a myUserContextProvider");
   }
-  return context
+  return context;
 };
