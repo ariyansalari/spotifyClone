@@ -39,7 +39,7 @@ export interface Subscription {
     status?:Stripe.Subscription.Status;
     meadata?:Stripe.Metadata;
     price_id?:string;
-    quantity?:string;
+    quantity?:number;
     canel_at_period_end?:boolean;
     created:string;
     current_period_start:string;
