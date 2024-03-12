@@ -2,7 +2,7 @@ import { Subscription, UserDetails } from "@/types";
 import { User } from "@supabase/auth-helpers-nextjs";
 
 export type UserContextType = {
-  accesstoken: string | null;
+  acessToken: string | null;
   user: User | null;
   userDetails: UserDetails | null;
   isLoading: boolean;
