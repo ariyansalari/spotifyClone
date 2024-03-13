@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
-import { SideBar } from "@/ui";
-import SupabaseProvider from "@/providers/SupabaseProvider";
 import { ModalProvider, ToasterProvider, UserProvider } from "@/providers";
-import { getSongsByUserId } from "@/actions/getSongsByUserId";
+import { PlayerBottom, SideBar } from "@/ui";
+import { getSongsByUserId } from "@/actions";
+import SupabaseProvider from "@/providers/SupabaseProvider";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -27,6 +27,7 @@ export default async function RootLayout({
           <UserProvider>
             <ModalProvider/>
               <SideBar songs={userSongs}>{children}</SideBar>
+              <PlayerBottom />
           </UserProvider>
         </SupabaseProvider>
       </body>
