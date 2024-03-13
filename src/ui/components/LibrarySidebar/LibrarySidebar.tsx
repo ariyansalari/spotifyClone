@@ -1,18 +1,23 @@
 "ues client";
 
 import { useAuthModal, useUploadModal, useUser } from "@/hooks";
+import { Song } from "@/types";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
+import { MediaItem } from "./partials";
 
-export const LibrarySidebar = () => {
-  const authModal=useAuthModal()
-  const uploadModal=useUploadModal()
-const {user }=useUser()
+interface LibrarySideBarProps {
+  songs: Song[];
+}
+export const LibrarySidebar: React.FC<LibrarySideBarProps> = ({ songs }) => {
+  const authModal = useAuthModal();
+  const uploadModal = useUploadModal();
+  const { user } = useUser();
   const onClick = () => {
-    if(!user){
-      return authModal.onOpen()
+    if (!user) {
+      return authModal.onOpen();
     }
-    return uploadModal.onOpen()
+    return uploadModal.onOpen();
   };
   return (
     <div className="flex flex-col">
@@ -27,7 +32,11 @@ const {user }=useUser()
           className="text-neutral-400 cursor-pointer hover:text-white transition"
         />
       </div>
-      <div className="flex flex-col gap-y-2 mt-4 px-3">List of Songs!</div>
+      <div className="flex flex-col gap-y-2 mt-4 px-3">
+        {songs.map((item) => (
+          <MediaItem key={item.id} data={item} onClick={() => {}} />
+        ))}
+      </div>
     </div>
   );
 };
