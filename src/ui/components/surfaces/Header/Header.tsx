@@ -16,14 +16,14 @@ export const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const authModal = useAuthModal();
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
-  
+
   const handleLogOut = async () => {
     const { error } = await supabaseClient.auth.signOut();
     router.refresh();
     if (error) {
-toast.error(error.message)
-    }else{
-      toast.success('Logged out')
+      toast.error(error.message);
+    } else {
+      toast.success("Logged out");
     }
   };
   return (
@@ -57,33 +57,38 @@ toast.error(error.message)
           </button>
         </div>
         <div className="flex justify-between items-center gap-x-4 ">
-          {user?(
-<div className="flex gap-x-4 items-center ">
-  <Button className="bg-white px-6 py-2" onClick={handleLogOut}>
-Logout
-  </Button>
-  <Button onClick={()=>router.push('/account')} className="bg-white" >
-<FaUser/>
-  </Button>
-</div>
-          ):(
-            <>
-            <div>
+          {user ? (
+            <div className="flex gap-x-4 items-center ">
+              <Button className="bg-white px-6 py-2" onClick={handleLogOut}>
+                Logout
+              </Button>
               <Button
-                onClick={authModal.onOpen}
-                className="bg-transparent text-neutral-300 font-medium"
+                onClick={() => router.push("/account")}
+                className="bg-white"
               >
-                Sign up
+                <FaUser />
               </Button>
             </div>
-            <div>
-              <Button onClick={authModal.onOpen} className="bg-white px-6 py-2">
-                Log in
-              </Button>
-            </div>
-          </>
+          ) : (
+            <>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="bg-transparent text-neutral-300 font-medium"
+                >
+                  Sign up
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="bg-white px-6 py-2"
+                >
+                  Log in
+                </Button>
+              </div>
+            </>
           )}
-       
         </div>
       </div>
       {children}
