@@ -1,3 +1,5 @@
 export * from "./Button"
 export * from "./InputText"
 export * from "./PlayButton"
+export * from "./SearchInput"
+export * from "./LikeButton"

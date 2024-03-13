@@ -1,4 +1,5 @@
  'use client'
+import { Song } from "@/types";
 import { Box, LibrarySidebar, SideBarItem } from "@/ui";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useMemo } from "react";
@@ -6,8 +7,9 @@ import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
 interface SideBarType {
   children: ReactNode;
+  songs:Song[]
 }
-export const SideBar: React.FC<SideBarType> = ({ children }) => {
+export const SideBar: React.FC<SideBarType> = ({ children,songs }) => {
   const pathname = usePathname();
   const routes = useMemo(() => [
       {
@@ -36,7 +38,7 @@ export const SideBar: React.FC<SideBarType> = ({ children }) => {
             </div>
         </Box>
         <Box className="overflow-y-auto h-full">
-         <LibrarySidebar />
+         <LibrarySidebar songs={songs}/>
         </Box>
       </div>
       <main className="h-full flex-1 overflow-y-auto py-2">
