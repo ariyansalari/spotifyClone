@@ -4,7 +4,8 @@ import { usePlayer } from "@/hooks";
 import { Song } from "@/types";
 import { LikeButton, MediaItem, Slider } from "@/ui";
 import { useEffect, useState } from "react";
-import useSound from "use-sound";
+// @ts-ignore
+import useSound from 'use-sound';
 
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
