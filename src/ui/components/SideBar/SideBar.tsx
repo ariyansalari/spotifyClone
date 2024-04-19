@@ -1,16 +1,19 @@
  'use client'
+import { usePlayer } from "@/hooks";
 import { Song } from "@/types";
 import { Box, LibrarySidebar, SideBarItem } from "@/ui";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useMemo } from "react";
 import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
+import { twMerge } from "tailwind-merge";
 interface SideBarType {
   children: ReactNode;
   songs:Song[]
 }
 export const SideBar: React.FC<SideBarType> = ({ children,songs }) => {
   const pathname = usePathname();
+  const player=usePlayer()
   const routes = useMemo(() => [
       {
         icon: HiHome,
@@ -28,7 +31,7 @@ export const SideBar: React.FC<SideBarType> = ({ children,songs }) => {
     
   , [pathname]);
   return (
-    <div className="h-full flex">
+    <div className={twMerge(`flex h-full `,player.activeId&&'h-[calc(100%-80px)]')}>
       <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2">
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-4">
