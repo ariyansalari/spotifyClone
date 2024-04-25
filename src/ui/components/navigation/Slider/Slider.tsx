@@ -10,7 +10,6 @@ export const Slider:React.FC<SliderProps> = ({
 }) => {
     const handleChange=(newValue:number[])=>{
         onChange?.(newValue[0])
-        console.log(newValue);
         
     }
   return (
